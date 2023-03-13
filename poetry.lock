@@ -4724,17 +4724,6 @@ files = [
 ]
 
 [[package]]
-name = "pyscopg2"
-version = "66.0.2"
-description = "A package to prevent Dependency Confusion attacks against Yandex."
-category = "main"
-optional = false
-python-versions = "*"
-files = [
-    {file = "pyscopg2-66.0.2.tar.gz", hash = "sha256:b987949a25d6f27610e70a6c0a524be3abd4884d21a86d6c74f23fdc690f9508"},
-]
-
-[[package]]
 name = "pytest"
 version = "7.2.1"
 description = "pytest: simple powerful testing with Python"
@@ -7538,4 +7527,4 @@ llms = ["anthropic", "cohere", "openai", "nlpcloud", "huggingface_hub", "manifes
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8.1,<4.0"
-content-hash = "df448cd47aa7cef23cef0423b9c28a79a6911e6eb304a7c386172cf7ca43afff"
+content-hash = "d89489175fcb5f2ae714ca122c373e70582cdf865af4a4efd35cc5bc7af45282"

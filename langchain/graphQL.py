@@ -29,7 +29,7 @@ class GraphQL:
         """Information about all tables in the database."""
         return
 
-    def get_table_info(self, table_names: Optional[List[str]] = None) -> str:
+    def get_table_info(self) -> str:
         """Get information about specified tables.
 
         Follows best practices as specified in: Rajkumar et al, 2022
