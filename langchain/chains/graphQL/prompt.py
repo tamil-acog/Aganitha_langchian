@@ -58,3 +58,6 @@ query targetInfo {
 Now with the above summary and the examples, given an input question, create a syntactically correct graphQL query to run
 """
 
+
+test_prompt = """Hello"""
+

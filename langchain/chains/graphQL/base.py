@@ -7,7 +7,6 @@ from pydantic import BaseModel, Extra, Field
 
 from langchain.chains.base import Chain
 from langchain.chains.graphQL_llm import LLMChain
-from langchain.chains.graphQL.prompt import prompt
 from langchain.llms.base import BaseLLM
 from langchain.graphQL import GraphQL
 
@@ -27,7 +26,7 @@ class GraphQLChain(Chain, BaseModel):
     """LLM wrapper to use."""
     database: Any = Field(exclude=True)
     """SQL Database to connect to."""
-    prompt: str = prompt
+    prompt: str
     """Prompt to use to translate natural language to SQL."""
     top_k: int = 5
     """Number of results to return from the query"""
@@ -64,7 +63,7 @@ class GraphQLChain(Chain, BaseModel):
             return [self.output_key, "intermediate_steps"]
 
     def _call(self, inputs: Dict[str, Any]) -> Dict[str, Any]:
-        llm_chain = LLMChain(llm=self.llm, prompt=prompt)
+        llm_chain = LLMChain(llm=self.llm, prompt=self.prompt)
         input_text = f"{inputs[self.input_key]} \nGraphQLQuery:"
         self.callback_manager.on_text(input_text, verbose=self.verbose)
         # If not present, then defaults to None which is all tables.
@@ -110,22 +109,22 @@ class GraphQLSequentialChain(Chain, BaseModel):
 
     This is useful in cases where the number of tables in the database is large.
     """
+    def __init__(cls, prompt: str):
+        cls.query_prompt: str = prompt
+        cls.decider_prompt: str = prompt
 
-    @classmethod
     def from_llm(
         cls,
         llm: BaseLLM,
         database: GraphQL,
-        query_prompt: str = prompt,
-        decider_prompt: str = prompt,
         **kwargs: Any,
     ) -> GraphQLSequentialChain:
         """Load the necessary chains."""
         sql_chain = GraphQLChain(
-            llm=llm, database=database, prompt=query_prompt, **kwargs
+            llm=llm, database=database, prompt=cls.query_prompt, **kwargs
         )
         decider_chain = LLMChain(
-            llm=llm, prompt=decider_prompt, output_key="table_names"
+            llm=llm, prompt=cls.decider_prompt, output_key="table_names"
         )
         return cls(sql_chain=sql_chain, decider_chain=decider_chain, **kwargs)
 

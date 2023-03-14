@@ -1,9 +1,9 @@
-from langchain import LLMMathChain, OpenAI, SQLDatabase, SQLDatabaseChain
+from langchain import OpenAI
 from langchain.postgres import PostgreSQL
 from langchain.chains.postgre_sql.base import PostgreSQLChain
 from langchain.agents import initialize_agent, Tool
 from langchain.utilities import SearxSearchWrapper
-import os
+
 
 search: SearxSearchWrapper = SearxSearchWrapper(searx_host="https://agansearch.hub-dev.aganitha.ai/",
                                                 headers={"authorization": "Basic YWNvZzpnMGJiIWVkeWcwMGs="})
@@ -11,8 +11,6 @@ search: SearxSearchWrapper = SearxSearchWrapper(searx_host="https://agansearch.h
 
 llm: OpenAI = OpenAI(model_name="text-davinci-003", temperature=0)
 
-
-llm_math_chain: LLMMathChain = LLMMathChain(llm=llm, verbose=True)
 
 db: PostgreSQL = PostgreSQL(user="postgres", password="guNagaNa1", host="127.0.0.1", port="5432", database="aact",
                             schema="ctgov",
