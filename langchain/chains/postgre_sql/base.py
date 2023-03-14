@@ -7,7 +7,7 @@ from pydantic import BaseModel, Extra, Field
 
 from langchain.chains.base import Chain
 from langchain.chains.llm import LLMChain
-from langchain.chains.sql_database.prompt import DECIDER_PROMPT, PROMPT
+from langchain.chains.postgre_sql.prompt import DECIDER_PROMPT, PROMPT
 from langchain.llms.base import BaseLLM
 from langchain.prompts.base import BasePromptTemplate
 from langchain.postgres import PostgreSQL
@@ -65,6 +65,7 @@ class PostgreSQLChain(Chain, BaseModel):
             return [self.output_key, "intermediate_steps"]
 
     def _call(self, inputs: Dict[str, Any]) -> Dict[str, Any]:
+        print(self.prompt)
         llm_chain = LLMChain(llm=self.llm, prompt=self.prompt)
         input_text = f"{inputs[self.input_key]} \nSQLQuery:"
         self.callback_manager.on_text(input_text, verbose=self.verbose)
