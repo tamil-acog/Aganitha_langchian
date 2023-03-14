@@ -21,7 +21,7 @@ class PostgreSQL:
         include_tables: Optional[List[str]] = None,
         sample_rows_in_table_info: int = 3,
     ):
-        """Create engine from database URI."""
+
         self.user = user
         self.password = password
         self.host = host
@@ -33,7 +33,6 @@ class PostgreSQL:
             raise ValueError("Cannot specify both include_tables and ignore_tables")
 
         self._include_tables = set(include_tables) if include_tables else set()
-
         with psycopg2.connect(user=self.user, password=self.password, host=self.host, port=self.port,
                               database=self.database) as conn:
             cursor = conn.cursor()

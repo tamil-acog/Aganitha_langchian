@@ -4,7 +4,7 @@ from langchain.chains.graphQL.base import GraphQLChain
 from langchain.graphQL import GraphQL
 
 
-db: GraphQL = GraphQL()
+db: GraphQL = GraphQL(graphql_url="https://api.platform.opentargets.org/api/v4/graphql")
 
 llm: OpenAI = OpenAI(model_name="gpt-3.5-turbo", temperature=0)
 

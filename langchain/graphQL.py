@@ -5,15 +5,16 @@ from typing import Iterable, List, Optional
 
 import requests
 import json
-from langchain.utils import extract_values
+
 
 class GraphQL:
 
     def __init__(
         self,
-        sample_rows_in_table_info: int = 3,
+        graphql_url: str = None
     ):
-        """Create engine from database URI."""
+
+        self.graphql_url = graphql_url
 
     @property
     def dialect(self) -> str:
@@ -42,13 +43,13 @@ class GraphQL:
         return
 
 
-    def run(self, command: str, fetch: str = "all") -> str:
+    def run(self, command: str) -> str:
         """Execute a SQL command and return a string representing the results.
 
         If the statement returns rows, a string of the results is returned.
         If the statement returns no rows, an empty string is returned.
         """
-        base_url = "https://api.platform.opentargets.org/api/v4/graphql"
+        base_url = self.graphql_url
 
         # Perform POST request and check status code of response
         # This handles the cases where the Open Targets API is down or our query is invalid

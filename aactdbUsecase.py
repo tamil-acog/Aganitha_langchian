@@ -36,5 +36,5 @@ tools = [
 query_agent = initialize_agent(tools, llm, agent="zero-shot-react-description")
 
 # query_agent.run("List the sponsors of Haemophilia clinical trials in Phase 3")
-query_agent.run("What are the most promising interventions being trialled for Beta Thalassemia?")
+query_agent.run("Give the overall status of NCT03947632?")
 # query_agent.run("Explain me about the aact database.")
